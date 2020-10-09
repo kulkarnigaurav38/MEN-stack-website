@@ -1,6 +1,7 @@
 var express     = require("express"),
-    app         = express(),
-    bodyParser  = require("body-parser"),
+    app         = express();
+	              require('dotenv').config();
+var	bodyParser  = require("body-parser"),
     mongoose    = require("mongoose"),
     passport    = require("passport"),
     LocalStrategy = require("passport-local"),
@@ -9,20 +10,22 @@ var express     = require("express"),
     User        = require("./models/user"),
 	flash       = require("connect-flash"),
 	methodOverride = require("method-override"),
-    seedDB      = require("./seeds")
+    seedDB      = require("./seeds");
     
 //requring routes
 var commentRoutes    = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
-    indexRoutes      = require("./routes/index")
+    indexRoutes      = require("./routes/index");
 
-mongoose.connect("mongodb://localhost:27017/yelp_camp", {useNewUrlParser: true, useUnifiedTopology: true}); 
+//mongoose.connect("mongodb://localhost:27017/yelp_camp", {useNewUrlParser: true, useUnifiedTopology: true}); 
+mongoose.connect(`mongodb+srv://Gaurav_Kulkarni:${process.env.DB_PASSWORD}@cluster0.koi9b.mongodb.net/test?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true}); 
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
-//seedDB(); //seed the database
+// seedDB(); //seed the database
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
