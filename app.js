@@ -1,6 +1,7 @@
 var express     = require("express"),
-    app         = express(),
-	bodyParser  = require("body-parser"),
+    app         = express();
+				  require('dotenv').config();
+var	bodyParser  = require("body-parser"),
     mongoose    = require("mongoose"),
     passport    = require("passport"),
     LocalStrategy = require("passport-local"),
@@ -17,7 +18,7 @@ var commentRoutes    = require("./routes/comments"),
     indexRoutes      = require("./routes/index");
 
 // Connecting to the database
-mongoose.connect("process.env.DATABASEURL", {useNewUrlParser: true, useUnifiedTopology: true}); 
+mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true, useUnifiedTopology: true}); 
  
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -53,9 +54,6 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
 
-app.listen(process.env.PORT || 3000, function(){
+app.listen(process.env.PORT, function(){
 	console.log("The YelpCamp Server has started!");
 });
-// app.listen(process.env.PORT, process.env.IP, function(){
-//    console.log("The YelpCamp Server Has Started!");
-// });
