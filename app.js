@@ -3,6 +3,7 @@ var express     = require("express"),
 				  require('dotenv').config();
 var	bodyParser  = require("body-parser"),
     mongoose    = require("mongoose"),
+	mongodb     = require("mongodb"),
     passport    = require("passport"),
     LocalStrategy = require("passport-local"),
     Campground  = require("./models/campground"),
